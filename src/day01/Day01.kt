@@ -1,4 +1,4 @@
-package day1
+package day01
 
 import readInput
 
@@ -27,7 +27,7 @@ fun main() {
     fun part2(input: List<String>): Int {
         return input.map { line ->
             val strLoc = numMap
-                    .map { Triple(it.value, line.indexOf(it.key), line.lastIndexOf(it.key)) }
+                    .map { it.value to line.indexOf(it.key) toTriple line.lastIndexOf(it.key) }
                     .filter { it.second > -1 }
                     .toMutableList()
             val numLoc = numMap.map { Triple(it.value, line.indexOf(it.value), line.lastIndexOf(it.value)) }.filter { it.second > -1 }
@@ -40,9 +40,9 @@ fun main() {
         }.sumOf { it.toInt() }
     }
 
-    val testInput = readInput("day1/Day01_test")
-    val testInput2 = readInput("day1/Day01_test2")
-    val input = readInput("day1/Day01")
+    val testInput = readInput("day01/Day01_test")
+    val testInput2 = readInput("day01/Day01_test2")
+    val input = readInput("day01/Day01")
     println("First part for test input:  ${part1(testInput)}")
 
     println("First part for input:  ${part1(input)}")
@@ -51,4 +51,8 @@ fun main() {
 
     println("Second part for input:  ${part2(input)}")
 
+}
+
+infix fun <A, B, C> Pair<A, B>.toTriple(t: C): Triple<A, B, C> {
+    return Triple(this.first, this.second, t)
 }
